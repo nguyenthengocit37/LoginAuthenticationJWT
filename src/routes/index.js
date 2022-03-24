@@ -1,8 +1,6 @@
 const authRouter = require('./auth');
 function router(app){
     app.use('/auth',authRouter);
-    app.use('/',(req, res) => {
-        res.send('oke')
-    });
+    app.use('/',authRouter);
 }
 module.exports = router;

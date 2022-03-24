@@ -6,13 +6,19 @@ const app = express();
 const morgan = require('morgan');
 const port = process.env.PORT || 3000;
 const router = require('./routes');
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
 //Declare DB
 const db = require('./config/db');
-
+//Use cors
+app.use(cors());
 //Config dotenv 
 dotenv.config();
 //Connect to database
 db.connect();
+
+//Set cookie config
+app.use(cookieParser());
 
 //Middleware Form data
 app.use(express.json());
