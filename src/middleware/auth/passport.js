@@ -21,5 +21,5 @@ passport.use(new GoogleStrategy({
   }
 ));
 const passportGoogle =   passport.authenticate( 'google', {failureRedirect: '/google/failure'});
-
-module.exports = passportGoogle;
+const passportGoogleScope = passport.authenticate('google', { scope:[ 'email', 'profile' ] });
+module.exports = {passportGoogle,passportGoogleScope};

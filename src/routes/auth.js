@@ -4,11 +4,11 @@ const router = express.Router();
 const authController = require('../app/controllers/AuthController');
 const {middlewareToken,verifyTokenAndAdminAuth} = require('../middleware/auth');
 const {isLoggedIn} = require('../middleware/auth/login');
-const passportGoogle = require('../middleware/auth/passport')
+const {passportGoogle,passportGoogleScope} = require('../middleware/auth/passport')
 
 
 
-router.get('/google',passport.authenticate('google', { scope:[ 'email', 'profile' ] }));
+router.get('/google',passportGoogleScope);
 router.get( '/google/callback',passportGoogle,authController.googleCallback);
 router.get( '/google/failure',authController.loginFailed);
 router.get('/success',isLoggedIn,authController.loginGoogleSuccess);

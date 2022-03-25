@@ -5,7 +5,16 @@ body{
     font-family: "Roboto",sans-serif;
     font-size: 17px;
   }
-  
+  a{
+      text-decoration:none;
+      text-decoration-style: none;
+  }
+  a:hover{
+    text-decoration:none;
+  }
+  button:hover{
+      opacity:0.8;
+  }
   #logreg-forms{
       width:412px;
       margin:10vh auto;
@@ -52,8 +61,6 @@ body{
   }
   
   #logreg-forms a{
-      display: block;
-      padding-top:10px;
       color:#fff;
   }
   
