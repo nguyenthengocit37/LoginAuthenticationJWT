@@ -3,27 +3,15 @@ const passport = require('passport');
 const router = express.Router();
 const authController = require('../app/controllers/AuthController');
 const {middlewareToken,verifyTokenAndAdminAuth} = require('../middleware/auth');
+const {isLoggedIn} = require('../middleware/auth/login');
+const passportGoogle = require('../middleware/auth/passport')
 
-const isLoggedIn =(req, res, next)=>{
-    if(req.user) next();
-    else res.send('error login')
-}
 
-router.get('/google',
-    passport.authenticate('google', { scope:[ 'email', 'profile' ] }
-));
-router.get('/success',isLoggedIn,(req, res) => {
-    const username = req.user.displayName;
-    res.render('home',{ username});
-})
-router.get( '/google/callback',
-    passport.authenticate( 'google', {failureRedirect: '/google/failure'}),
-        (req, res) => {
-            res.redirect('/success');
-        });
-router.get( '/google/failure',(req,res)=>{
-        res.send('You failed to login. Please try again.');
-})
+
+router.get('/google',passport.authenticate('google', { scope:[ 'email', 'profile' ] }));
+router.get( '/google/callback',passportGoogle,authController.googleCallback);
+router.get( '/google/failure',authController.loginFailed);
+router.get('/success',isLoggedIn,authController.loginGoogleSuccess);
 router.get('/getAllUsers',middlewareToken,authController.getAllUsers);
 router.post('/signup',authController.signup);
 router.post('/signin',authController.signin);

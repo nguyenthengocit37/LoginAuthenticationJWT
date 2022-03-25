@@ -82,28 +82,28 @@ class AuthController {
         res.status(500).json(error);
     }    
   }
-  // //Generate access token
-  // generateAccessToken(user){
-  //   jwt.sign({
-  //     id : user._id,
-  //     admin : user.isAdmin
-  //   },
-  //   process.env.JWT_ASSESS_KEY,
-  //   {
-  //     expiresIn:'30s'
-  //   });
-  // }
-  // //Generate refresh token
-  // generateRefreshToken(user){
-  //   jwt.sign({
-  //     id : user._id,
-  //     admin : user.isAdmin
-  //   },
-  //   process.env.JWT_ASSESS_KEY,
-  //   {
-  //     expiresIn:'365d'
-  //   });
-  // }
+  //Generate access token
+  generateAccessToken(user){
+    jwt.sign({
+      id : user._id,
+      admin : user.isAdmin
+    },
+    process.env.JWT_ASSESS_KEY,
+    {
+      expiresIn:'30s'
+    });
+  }
+  //Generate refresh token
+  generateRefreshToken(user){
+    jwt.sign({
+      id : user._id,
+      admin : user.isAdmin
+    },
+    process.env.JWT_ASSESS_KEY,
+    {
+      expiresIn:'365d'
+    });
+  }
   //[POST] /auth/signin
    signin(req, res, next) {
     try {
@@ -139,9 +139,23 @@ class AuthController {
   secret(req, res, next) {
     res.send("secret");
   }
+  //[GET] /auth/logout
   logout(req, res, next){
     req.session.destroy();
     req.redirect("/");
+  }
+  //Login Google Successfully
+  loginGoogleSuccess(req, res){
+    const username = req.user.displayName;
+    res.render('home',{ username});
+  }
+  //Login Google Failurefully
+  loginFailed(req,res){
+    res.send('You failed to login. Please try again.');
+  }
+  //Google callback
+  googleCallback(req,res){
+    res.redirect('/success');
   }
 }
 module.exports = new AuthController();

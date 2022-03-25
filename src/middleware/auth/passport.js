@@ -20,3 +20,6 @@ passport.use(new GoogleStrategy({
       return done(null, profile);
   }
 ));
+const passportGoogle =   passport.authenticate( 'google', {failureRedirect: '/google/failure'});
+
+module.exports = passportGoogle;

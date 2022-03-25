@@ -10,7 +10,7 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const passport = require('passport');
 const cookieSession = require('cookie-session');
- require('./middleware/auth/passport');
+require('./middleware/auth/passport');
 
 //Set cookie session
 app.use(cookieSession({
