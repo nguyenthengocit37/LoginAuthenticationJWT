@@ -47,60 +47,60 @@
             <br>
     </div>
     <script>
-      const name = $('input[name="nameSignup"]');
-      const email = $('input[name="emailSignup"]');
-      const password = $('input[name="passwordSignup"]');
-      const repeatPassword = $('input[name="repeatPasswordSignup"]');
-      const emailLogin = $('input[name="email"]');
-      const passwordLogin = $('input[name="password"]');
-      const alert = $('#alertDanger');
-    //Check login 
-    $('#formSignin').on('submit',function(e){
-      if(emailLogin.val().length <= 0){
-        e.preventDefault();
-        alert.attr('hidden',false);
-        alert.html('Invalid Email');
-      }else if(passwordLogin.val().length <= 6){
-        e.preventDefault();
-        alert.attr('hidden',false);
-        alert.html('Invalid PassWord !');
-      }
-    })
-    function toggleResetPswd(e){
-    e.preventDefault();
-    $('#logreg-forms .form-signin').toggle() // display:block or none
-    $('#logreg-forms .form-reset').toggle() // display:block or none
-    }
-
-    function toggleSignUp(e){
-        e.preventDefault();
-        $('#logreg-forms .form-signin').toggle(); // display:block or none
-        $('#logreg-forms .form-signup').toggle(); // display:block or none
-    }
-     //check match password 
-      $('#formSignup').on('submit', function(e){
-        if(name.val().length <= 0 ){
+        document.addEventListener("DOMContentLoaded",()=>{
+            const name = $('input[name="nameSignup"]');
+            const email = $('input[name="emailSignup"]');
+            const password = $('input[name="passwordSignup"]');
+            const repeatPassword = $('input[name="repeatPasswordSignup"]');
+            const emailLogin = $('input[name="email"]');
+            const passwordLogin = $('input[name="password"]');
+            const alert = $('#alertDanger');
+          //Check login 
+          $('#formSignin').on('submit',function(e){
+            if(emailLogin.val().length <= 0){
               e.preventDefault();
-              $('#message').html('Invalid Name !').css('color', 'red');
-        }
-        else if(email.val().length <= 6){
-           e.preventDefault();
-           $('#message').html('Invalid Email !').css('color', 'red');
-        }
-        else if(password.val() !== repeatPassword.val()) {
+              alert.attr('hidden',false);
+              alert.html('Invalid Email');
+            }else if(passwordLogin.val().length <= 6){
               e.preventDefault();
-              $('#message').html('Invalid Password !').css('color', 'red');
-        }
-      })
+              alert.attr('hidden',false);
+              alert.html('Invalid PassWord !');
+            }
+          })
+          function toggleResetPswd(e){
+              e.preventDefault();
+              $('#logreg-forms .form-signin').toggle(); // display:block or none
+              $('#logreg-forms .form-reset').toggle(); // display:block or none
+          }
 
-    $(()=>{
-        // Login Register Form
-        $('#logreg-forms #forgot_pswd').click(toggleResetPswd);
-        $('#logreg-forms #cancel_reset').click(toggleResetPswd);
-        $('#logreg-forms #btn-signup').click(toggleSignUp);
-        $('#logreg-forms #cancel_signup').click(toggleSignUp);
-    })
-   
+          function toggleSignUp(e){
+              e.preventDefault();
+              $('#logreg-forms .form-signin').toggle(); // display:block or none
+              $('#logreg-forms .form-signup').toggle(); // display:block or none
+          }
+          //check match password 
+            $('#formSignup').on('submit', function(e){
+              if(name.val().length <= 0 ){
+                    e.preventDefault();
+                    $('#message').html('Invalid Name !').css('color', 'red');
+              }
+              else if(email.val().length <= 6){
+                    e.preventDefault();
+                    $('#message').html('Invalid Email !').css('color', 'red');
+              }
+              else if(password.val() !== repeatPassword.val()) {
+                    e.preventDefault();
+                    $('#message').html('Invalid Password !').css('color', 'red');
+              }
+            })
 
+          $(()=>{
+              // Login Register Form
+              $('#logreg-forms #forgot_pswd').click(toggleResetPswd);
+              $('#logreg-forms #cancel_reset').click(toggleResetPswd);
+              $('#logreg-forms #btn-signup').click(toggleSignUp);
+              $('#logreg-forms #cancel_signup').click(toggleSignUp);
+          })
+      });
     </script>
  

@@ -17,16 +17,15 @@ dotenv.config();
 //Connect to database
 db.connect();
 
-//Set cookie config
-app.use(cookieParser());
 
 //Middleware Form data
 app.use(express.json());
 app.use(
     express.urlencoded({
         extended: true,
-    }),
-);
+    }));
+app.use(cookieParser());
+
 //HTTP logger 
 app.use(morgan('combined'));
 
