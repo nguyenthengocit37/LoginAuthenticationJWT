@@ -8,6 +8,16 @@ const port = process.env.PORT || 3000;
 const router = require('./routes');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+const passport = require('passport');
+const cookieSession = require('cookie-session');
+ require('./middleware/auth/passport');
+
+//Set cookie session
+app.use(cookieSession({
+    name: 'session',
+    keys: ['key1', 'key2']
+  }))
+
 //Declare DB
 const db = require('./config/db');
 //Use cors
@@ -25,6 +35,8 @@ app.use(
         extended: true,
     }));
 app.use(cookieParser());
+app.use(passport.initialize());
+app.use(passport.session());
 
 //HTTP logger 
 app.use(morgan('combined'));

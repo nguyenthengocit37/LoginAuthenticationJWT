@@ -139,5 +139,9 @@ class AuthController {
   secret(req, res, next) {
     res.send("secret");
   }
+  logout(req, res, next){
+    req.session.destroy();
+    req.redirect("/");
+  }
 }
 module.exports = new AuthController();
