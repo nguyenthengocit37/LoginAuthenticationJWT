@@ -1,8 +1,24 @@
+const dotenv = require('dotenv');
 const passport = require('passport');
+const FacebookStrategy = require('passport-facebook');
 const GoogleStrategy = require( 'passport-google-oauth20' ).Strategy;
-const {MY_CLIENT_ID,MY_CLIENT_SECRET} = require('../../config/passportGoogle');
+const {auth} = require('../../config/passport');
 
+//Config passport Facebook
 
+passport.use(new FacebookStrategy({
+  clientID: auth.facebook.FACEBOOK_CLIENT_ID,
+  clientSecret: auth.facebook.FACEBOOK_CLIENT_SECRET,
+  callbackURL: "http://localhost:3000/auth/facebook/callback",
+  profileFields: [ 'email', 'displayName', 'photos'],
+},
+function(accessToken, refreshToken, profile, done) {
+   return done(null, profile);
+}
+));
+const passportFacebook = passport.authenticate('facebook', { failureRedirect: '/login' });
+const passportFacebookMain = passport.authenticate('facebook', {scope: 'email'});
+//Config passport Google
 passport.serializeUser(function(user, done){
   done(null, user);
 });
@@ -11,8 +27,8 @@ passport.deserializeUser(function(user, done) {
   done(null, user);
 });
 passport.use(new GoogleStrategy({
-    clientID: MY_CLIENT_ID,
-    clientSecret: MY_CLIENT_SECRET,
+    clientID: auth.google.GOOGLE_CLIENT_ID,
+    clientSecret: auth.google.GOOGLE_CLIENT_SECRET,
     callbackURL: "http://localhost:3000/google/callback",
     passReqToCallback   : true
   },
@@ -22,4 +38,4 @@ passport.use(new GoogleStrategy({
 ));
 const passportGoogle =   passport.authenticate( 'google', {failureRedirect: '/google/failure'});
 const passportGoogleScope = passport.authenticate('google', { scope:[ 'email', 'profile' ] });
-module.exports = {passportGoogle,passportGoogleScope};
+module.exports = {passportGoogle,passportGoogleScope,passportFacebook,passportFacebookMain};

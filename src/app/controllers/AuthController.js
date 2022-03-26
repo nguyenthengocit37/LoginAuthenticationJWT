@@ -141,8 +141,8 @@ class AuthController {
   }
   //[GET] /auth/logout
   logout(req, res, next){
-    req.session.destroy();
-    req.redirect("/");
+    req.logout();
+      res.redirect('/');
   }
   //Login Google Successfully
   loginGoogleSuccess(req, res){
@@ -156,6 +156,11 @@ class AuthController {
   //Google callback
   googleCallback(req,res){
     res.redirect('/success');
+  }
+  //Facebook callback
+  facebookCallback(req,res){
+    const username = req.user.displayName;
+    res.render('home',{ username});
   }
 }
 module.exports = new AuthController();

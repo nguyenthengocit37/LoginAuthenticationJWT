@@ -4,10 +4,11 @@ const router = express.Router();
 const authController = require('../app/controllers/AuthController');
 const {middlewareToken,verifyTokenAndAdminAuth} = require('../middleware/auth');
 const {isLoggedIn} = require('../middleware/auth/login');
-const {passportGoogle,passportGoogleScope} = require('../middleware/auth/passport')
+const {passportGoogle,passportGoogleScope,passportFacebook,passportFacebookMain} = require('../middleware/auth/passport')
 
 
-
+router.get('/facebook',passportFacebookMain);
+router.get('/facebook/callback',passportFacebook,authController.facebookCallback);
 router.get('/google',passportGoogleScope);
 router.get( '/google/callback',passportGoogle,authController.googleCallback);
 router.get( '/google/failure',authController.loginFailed);
@@ -15,7 +16,7 @@ router.get('/success',isLoggedIn,authController.loginGoogleSuccess);
 router.get('/getAllUsers',middlewareToken,authController.getAllUsers);
 router.post('/signup',authController.signup);
 router.post('/signin',authController.signin);
-router.post('/logout',authController.logout);
+router.get('/logout',authController.logout);
 router.post('/secret',authController.secret);
 router.get('/:id',verifyTokenAndAdminAuth,authController.delete);
 router.get('/',authController.index);
