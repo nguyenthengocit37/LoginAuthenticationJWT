@@ -3,7 +3,6 @@ const express = require('express');
 const hdb = require('express-handlebars');
 const path = require('path');
 const app = express();
-const morgan = require('morgan');
 const port = process.env.PORT || 3000;
 const router = require('./routes');
 const cookieParser = require('cookie-parser');
@@ -38,8 +37,6 @@ app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
 
-//HTTP logger 
-app.use(morgan('combined'));
 
 //Set static path
 app.use(express.static(path.join(__dirname,'public')));
