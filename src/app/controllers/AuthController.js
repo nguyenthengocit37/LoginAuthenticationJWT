@@ -66,7 +66,7 @@ class AuthController {
                     });
                     userNew.save()
                     .then(()=>{
-                      res.status(200).redirect('/');
+                      res.send("Đăng ký thành công")
                     })
                     .catch(()=>{
                       res.json("error");
@@ -112,7 +112,10 @@ class AuthController {
         bcrypt.compare(req.body.password,user.password)
         .then(validPassword => {
           if(!validPassword) {
-            return res.status(403).json('Wrong Email or Password');
+            return res.status(403).json({
+              success:false,
+              error:'Wrong Email or Password'
+            });
           }
           if(user && validPassword){
             // const assertToken = AuthController.generateAccessToken(user);
@@ -130,7 +133,10 @@ class AuthController {
         )
       })
       .catch(err => {
-        res.status(403).json('Wrong Email or Password')
+        return res.status(403).json({
+          success:false,
+          error:'Wrong Email or Password'
+        });
       });
     } catch (error) {
       res.json(error);
